@@ -64,12 +64,70 @@ function drawLandBlock(p, s) {
   p.endShape(p.CLOSE);
 }
 
+function parseCommands(text) {
+  return text.split("\n").map((line) => line.trim()).filter((line) => line.length > 0);
+}
+
+function drawPyramid3(p, s) {
+  const h = s / 2;
+  const floorY = -(s * 0.15) / 2;
+  const apexY = floorY - s;
+  const r = h;
+
+  const angle0 = -Math.PI / 2;
+  const angle1 = angle0 + (2 * Math.PI) / 3;
+  const angle2 = angle0 + (4 * Math.PI) / 3;
+
+  const v0 = [r * Math.cos(angle0), floorY, r * Math.sin(angle0)];
+  const v1 = [r * Math.cos(angle1), floorY, r * Math.sin(angle1)];
+  const v2 = [r * Math.cos(angle2), floorY, r * Math.sin(angle2)];
+  const apex = [0, apexY, 0];
+
+  p.fill(160, 160, 160);
+
+  // Base
+  p.beginShape();
+  p.vertex(...v0);
+  p.vertex(...v1);
+  p.vertex(...v2);
+  p.endShape(p.CLOSE);
+
+  // Side faces
+  p.fill(140, 140, 140);
+  p.beginShape();
+  p.vertex(...v0);
+  p.vertex(...v1);
+  p.vertex(...apex);
+  p.endShape(p.CLOSE);
+
+  p.fill(120, 120, 120);
+  p.beginShape();
+  p.vertex(...v1);
+  p.vertex(...v2);
+  p.vertex(...apex);
+  p.endShape(p.CLOSE);
+
+  p.fill(100, 100, 100);
+  p.beginShape();
+  p.vertex(...v2);
+  p.vertex(...v0);
+  p.vertex(...apex);
+  p.endShape(p.CLOSE);
+}
+
 const sketch = (p) => {
+  let commands = [];
+
   p.setup = () => {
     const container = document.getElementById("canvas-container");
     const canvas = p.createCanvas(container.offsetWidth, container.offsetHeight, p.WEBGL);
     canvas.parent(container);
     p.ortho();
+
+    const textarea = document.querySelector("#editor textarea");
+    textarea.addEventListener("input", () => {
+      commands = parseCommands(textarea.value);
+    });
   };
 
   p.draw = () => {
@@ -77,6 +135,12 @@ const sketch = (p) => {
     p.orbitControl();
     p.stroke(150);
     drawLandBlock(p, BLOCK_SIZE);
+
+    for (const cmd of commands) {
+      if (cmd === "pyr3") {
+        drawPyramid3(p, BLOCK_SIZE);
+      }
+    }
   };
 };
 
