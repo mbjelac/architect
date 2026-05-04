@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node_modules/.bin/vite",
-    "build": "node_modules/.bin/vite build"
+    "build": "node_modules/.bin/vite build",
+    "test": "npx playwright test",
+    "test:update": "npx playwright test --update-snapshots"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,8 @@
   "dependencies": {
     "p5": "^2.2.3",
     "vite": "^8.0.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
   }
 }
