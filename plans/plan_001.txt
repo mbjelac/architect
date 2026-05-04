@@ -20,4 +20,4 @@ do these steps and report after each step. then wait for my approval to continue
 - [done] when site opens up, rendering viewport should be tilted so the floor panel is visible from the top at a 45 deg angle, also viewport should be rotated 45 deg to left or right so the floor appears as a rhombus
     - after this change run the single playwright test. it should fail. open the snapshot, then wait for me to confirm is it ok
     - if confirmed, update snapshots
-- add playwright test to verify that "pyr3" produces the 3-sided pyramid
+- [done] add playwright test to verify that "pyr3" produces the 3-sided pyramid
