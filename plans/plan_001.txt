@@ -7,4 +7,13 @@ do these steps and report after each step. then wait for my approval to continue
     - the UI is a horizontal split between a textarea on the left side and the p5 rendering box on the right side
     - the p5 rendering box just renders one box, like the "land" boxes but very thin (low height)
     - ignore the map1.txt file completely and remove all code that processes it
+    - remove camera persistance
+    - remove edge detection
+    - remove any land generation (land, river, mountains)
 
+#2 implement 3-sided pyramid
+- when text area changes text, parse it line by line
+    - apply every line you understand by drawing something in the p5.js box
+- when text area contains line "pyr3" draw a 3-sided pyramid, with it's base touching the top of the floor
+    - "floor" means the top side of the already existing box
+    - the floor box can not be removed from the structure
