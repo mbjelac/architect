@@ -133,6 +133,8 @@ const sketch = (p) => {
   p.draw = () => {
     p.background(30);
     p.orbitControl();
+    p.rotateX(-Math.PI / 4);
+    p.rotateY(Math.PI / 4);
     p.stroke(150);
     drawLandBlock(p, BLOCK_SIZE);
 
