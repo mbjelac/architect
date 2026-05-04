@@ -1,0 +1,10 @@
+this is a copy of an existing codebase.
+do these steps and report after each step. then wait for my approval to continue.
+
+#1 get to Architect project baseline
+- study what the existing code does
+- modify it so that
+    - the UI is a horizontal split between a textarea on the left side and the p5 rendering box on the right side
+    - the p5 rendering box just renders one box, like the "land" boxes but very thin (low height)
+    - ignore the map1.txt file completely and remove all code that processes it
+
