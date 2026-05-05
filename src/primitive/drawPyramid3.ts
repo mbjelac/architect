@@ -1,6 +1,7 @@
+import p5 from "p5";
 import {BLOCK_SIZE} from "../constants";
 
-export function drawPyramid3(p) {
+export function drawPyramid3(p: p5) {
   const h = BLOCK_SIZE / 2;
   const floorY = -(BLOCK_SIZE * 0.15) / 2;
   const apexY = floorY - BLOCK_SIZE;
@@ -10,10 +11,10 @@ export function drawPyramid3(p) {
   const angle1 = angle0 + (2 * Math.PI) / 3;
   const angle2 = angle0 + (4 * Math.PI) / 3;
 
-  const v0 = [r * Math.cos(angle0), floorY, r * Math.sin(angle0)];
-  const v1 = [r * Math.cos(angle1), floorY, r * Math.sin(angle1)];
-  const v2 = [r * Math.cos(angle2), floorY, r * Math.sin(angle2)];
-  const apex = [0, apexY, 0];
+  const v0: [number, number, number] = [r * Math.cos(angle0), floorY, r * Math.sin(angle0)];
+  const v1: [number, number, number] = [r * Math.cos(angle1), floorY, r * Math.sin(angle1)];
+  const v2: [number, number, number] = [r * Math.cos(angle2), floorY, r * Math.sin(angle2)];
+  const apex: [number, number, number] = [0, apexY, 0];
 
   p.fill(160, 160, 160);
 

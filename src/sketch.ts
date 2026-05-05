@@ -4,9 +4,9 @@ import {readCommands} from "./readCommands";
 import {applyCommands} from "./applyCommands";
 import {BLOCK_SIZE} from "./constants";
 
-const sketch = (p) => {
+const sketch = (p: p5) => {
   p.setup = () => {
-    const container = document.getElementById("canvas-container");
+    const container = document.getElementById("canvas-container")!;
     const canvas = p.createCanvas(container.offsetWidth, container.offsetHeight, p.WEBGL);
     canvas.parent(container);
     p.ortho();
@@ -23,7 +23,7 @@ const sketch = (p) => {
     const commands = readCommands();
     applyCommands(p, commands);
 
-    document.getElementById("canvas-container").dataset.rendered = "true";
+    document.getElementById("canvas-container")!.dataset.rendered = "true";
   };
 };
 

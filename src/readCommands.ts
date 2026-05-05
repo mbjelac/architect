@@ -1,13 +1,21 @@
-export function readCommands() {
-  const textarea = document.querySelector("#editor textarea");
+export type BodyType = "pyr3";
+
+export interface CreateBody {
+  type: BodyType;
+  translate: [number, number, number] | null;
+  rotate: [number, number] | null;
+}
+
+export function readCommands(): CreateBody[] {
+  const textarea = document.querySelector("#editor textarea") as HTMLTextAreaElement;
   return parseCommands(textarea.value);
 }
 
-function parseCommands(text) {
-  return text.split("\n").map(parseLine).filter((cmd) => cmd !== null);
+function parseCommands(text: string): CreateBody[] {
+  return text.split("\n").map(parseLine).filter((cmd): cmd is CreateBody => cmd !== null);
 }
 
-function parseLine(line) {
+function parseLine(line: string): CreateBody | null {
   const trimmed = line.trim();
   if (!trimmed) return null;
 
@@ -21,13 +29,13 @@ function parseLine(line) {
   return null;
 }
 
-function parseTranslate(str) {
+function parseTranslate(str: string): [number, number, number] | null {
   const match = str.match(/t\(\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
   if (!match) return null;
   return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
 }
 
-function parseRotate(str) {
+function parseRotate(str: string): [number, number] | null {
   const match = str.match(/r\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
   if (!match) return null;
   return [parseInt(match[1]), parseInt(match[2])];

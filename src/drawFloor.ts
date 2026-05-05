@@ -1,9 +1,11 @@
-export function drawFloor(p, s) {
+import p5 from "p5";
+
+export function drawFloor(p: p5, s: number) {
   const h = s / 2;
   const height = s * 0.15;
-  const green = [30, 200, 80];
-  const brown = [180, 140, 90];
-  const darkBrown = [100, 70, 40];
+  const green: [number, number, number] = [30, 200, 80];
+  const brown: [number, number, number] = [180, 140, 90];
+  const darkBrown: [number, number, number] = [100, 70, 40];
 
   // Top face (green)
   p.fill(...green);

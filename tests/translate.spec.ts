@@ -1,4 +1,4 @@
-import { test, setup, expectScreenshot } from "./test-utils.js";
+import { test, setup, expectScreenshot } from "./test-utils";
 
 setup();
 
