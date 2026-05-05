@@ -90,3 +90,13 @@ do these steps and report after each step. then wait for my approval to continue
 - [done] add visual test for displaying 4-sided pyramid to shapes.spec.js
 - [done] add visual tests for displaying multiple pyramids, some 3-sides, some 4-sided
     - to fit, scale them down to 60% and translate each from the center, each in it's own direction
+
+#7 coloring
+- color function "c" applies color to the object
+    - looks like c(#c23fe0)
+    - parameter is a hex rgb value with a # prepended
+    - color is applied to the entire body on that line
+    - other functions can be on the same line in any order, separated by spaces, like: "pyr t(10,0,100) c(#23fe12) r(45,0)"
+- add visual tests colors.spec.ts
+    - test pyr3 with a color
+    - test multiple pyramids with different colors, scaled to 60% and moved off center each in it's own direction
