@@ -20,6 +20,14 @@ export function applyCommands(p: p5, commands: CreateBody[]) {
         p.rotateY(command.rotate[0] * toRad);
         p.rotateX(command.rotate[1] * toRad);
       }
+      if (command.scale) {
+        const toFactor = (v: number) => Math.max(v, 1) / 100;
+        p.scale(
+          toFactor(command.scale[0]),
+          toFactor(command.scale[2]),
+          toFactor(command.scale[1])
+        );
+      }
       drawPyramid3(p);
       p.pop();
     }
