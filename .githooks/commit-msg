@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+file="$1"
+if [ ! -f "$file" ]; then
+  exit 0
+fi
+
+tmpfile="${file}.tmp.$RANDOM$RANDOM"
+awk '
+{
+  lines[NR] = $0
+}
+END {
+  n = NR
+  if (n > 0) {
+    subj = lines[1]
+    if (match(subj, /^[[:space:]]*[A-Za-z]+/)) {
+      prefix = substr(subj, 1, RSTART - 1)
+      token  = substr(subj, RSTART, RLENGTH)
+      rest   = substr(subj, RSTART + RLENGTH)
+      tl = tolower(token)
+      replacement = ""
+      if (tl == "i") {
+        replacement = "Implement"
+      } else if (tl == "p") {
+        replacement = "Plan"
+      } else if (tl == "r") {
+        replacement = "Refactor"
+      } else if (tl == "f") {
+        replacement = "Fix"
+      } else if (tl == "at") {
+        replacement = "Add test"
+      } else if (tl == "l") {
+        replacement = "Learn"
+      }
+      if (replacement != "") {
+        lines[1] = prefix replacement rest
+      }
+    }
+  }
+  for (i = 1; i <= n; i++) print lines[i]
+}
+' "$file" > "$tmpfile"
+mv "$tmpfile" "$file"
