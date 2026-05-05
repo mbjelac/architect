@@ -83,3 +83,8 @@ do these steps and report after each step. then wait for my approval to continue
         - s(100, 100, x)
         - s(x)
         - for x values: -10, 0, 1, 50, 100, 150, 500
+
+#6 4-sided pyramid
+- command "pyr" or "pyr4" produces a 4-sided pyramid
+- same modification functions work on it (rotate, translate, scale)
+- add visual test for displaying 4-sided pyramid to shapes.spec.js
