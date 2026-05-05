@@ -31,7 +31,8 @@ for (const { axis, template } of translateCases) {
 }
 
 async function expectScreenshot(page, name) {
-  await page.waitForTimeout(1000);
+  await page.locator('#canvas-container[data-rendered="true"]').waitFor({ timeout: 2000 });
+  await page.waitForTimeout(50);
   const canvas = page.locator("#canvas-container");
   await expect(canvas).toHaveScreenshot(`${name}.png`, {
     maxDiffPixelRatio: 0.01,

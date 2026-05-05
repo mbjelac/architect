@@ -22,6 +22,8 @@ const sketch = (p) => {
 
     const commands = readCommands();
     applyCommands(p, commands);
+
+    document.getElementById("canvas-container").dataset.rendered = "true";
   };
 };
 
