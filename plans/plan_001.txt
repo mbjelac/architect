@@ -43,7 +43,7 @@ do these steps and report after each step. then wait for my approval to continue
 - [done] add visual tests
     - one test for each translation parameter with values -50, 50, -100, 100
     - parameterize tests if test runner library supports it
-- refactor sketch.js
+- [done] refactor sketch.js
     - separate reading of commands and applying them into functions
     - that way the main function can load commands into a const, not val
 
