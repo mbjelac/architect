@@ -30,6 +30,21 @@ for (const { axis, template } of translateCases) {
   }
 }
 
+const rotateCases = [
+  { axis: "horizontal", template: (v) => `pyr3 r(${v},0)` },
+  { axis: "vertical", template: (v) => `pyr3 r(0,${v})` },
+];
+
+for (const { axis, template } of rotateCases) {
+  for (const value of [-40, 40, -90, 90, -175, 175]) {
+    const cmd = template(value);
+    test(`rotate ${axis} ${value}: ${cmd}`, async ({ page }) => {
+      await page.locator("#editor textarea").fill(cmd);
+      await expectScreenshot(page, `rotate-${axis}-${value}`);
+    });
+  }
+}
+
 async function expectScreenshot(page, name) {
   await page.locator('#canvas-container[data-rendered="true"]').waitFor({ timeout: 2000 });
   await page.waitForTimeout(50);

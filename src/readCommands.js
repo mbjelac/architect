@@ -13,8 +13,9 @@ function parseLine(line) {
 
   if (trimmed.startsWith("pyr3")) {
     const rest = trimmed.slice(4).trim();
-    const translate = rest ? parseTranslate(rest) : null;
-    return {type: "pyr3", translate};
+    const translate = parseTranslate(rest);
+    const rotate = parseRotate(rest);
+    return {type: "pyr3", translate, rotate};
   }
 
   return null;
@@ -24,4 +25,10 @@ function parseTranslate(str) {
   const match = str.match(/t\(\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
   if (!match) return null;
   return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
+}
+
+function parseRotate(str) {
+  const match = str.match(/r\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
+  if (!match) return null;
+  return [parseInt(match[1]), parseInt(match[2])];
 }

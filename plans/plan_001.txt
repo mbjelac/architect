@@ -47,8 +47,8 @@ do these steps and report after each step. then wait for my approval to continue
     - separate reading of commands and applying them into functions
     - that way the main function can load commands into a const, not val
 
-#4 object can be rotated around it's center
-- if after "pyr3" on the same line there is a "rotate" command, apply it so that the object is rotated around it's center
+#4 [done] object can be rotated around it's center
+- [done] if after "pyr3" on the same line there is a "rotate" command, apply it so that the object is rotated around it's center
     - example: "pyr3 r(20,-60) t(0, 10, -40)"
     - "r" means rotate
     - rotate command can be on the same line as translate command
@@ -59,3 +59,8 @@ do these steps and report after each step. then wait for my approval to continue
     - 180 means "rotate by 180 degrees"
     - r(0, 90) means "rotate by 90 degrees in a vertical plane"
     - r(90, 0) means "rotate by 90 degrees in a horizontal plane"
+- [done] add visual tests for rotation
+    - parameterized on parameters: r(x, 0), r(0, x) and values x = -40, 40, -90, 90, -175, 175
+
+#5 object can be scaled
+- "scale" command looks like "s("
