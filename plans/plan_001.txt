@@ -11,7 +11,7 @@ do these steps and report after each step. then wait for my approval to continue
     - remove edge detection
     - remove any land generation (land, river, mountains)
 
-#2 implement 3-sided pyramid
+#2 [done] implement 3-sided pyramid
 - [done] when text area changes text, parse it line by line
     - apply every line you understand by drawing something in the p5.js box
 - [done] when text area contains line "pyr3" draw a 3-sided pyramid, with it's base touching the top of the floor
@@ -28,3 +28,34 @@ do these steps and report after each step. then wait for my approval to continue
         - this can all be put into a expectScreenshot("name") function
     - setup
         - page.goto & page.waitForSelector("canvas") can be put into beforeEach
+
+#3 object can be moved around
+- [done] if after "pyr3" on the same line there is a "translate" command, apply it so that the object is placed to a location relative to it's starting one
+    - example: "pyr3 t(-40, 50,120)"
+    - "t" means translate
+    - arguments in brackets may or may not be separated by spaces but have to be separated with commas
+    - arguments are integers from 0 to 100
+    - 0 means "do not move"
+    - 100 means "move by the amount of floor-width (or height)"
+    - 1st argument is moving left-right across the floor
+    - 2nd argument is moving forward-backward across the floor
+    - 3rd argument is moving up-down
+- [done] add visual tests
+    - one test for each translation parameter with values -50, 50, -100, 100
+    - parameterize tests if test runner library supports it
+- refactor sketch.js
+    - separate reading of commands and applying them into functions
+    - that way the main function can load commands into a const, not val
+
+#4 object can be rotated around it's center
+- if after "pyr3" on the same line there is a "rotate" command, apply it so that the object is rotated around it's center
+    - example: "pyr3 r(20,-60) t(0, 10, -40)"
+    - "r" means rotate
+    - rotate command can be on the same line as translate command
+    - all commands need to be separated by one or more spaces
+    - rotate command has two parameters: angles in degrees, one in a vertical plane, one in horizontal plane
+    - angles are integers from -180 to 180
+    - 0 means "do not rotate"
+    - 180 means "rotate by 180 degrees"
+    - r(0, 90) means "rotate by 90 degrees in a vertical plane"
+    - r(90, 0) means "rotate by 90 degrees in a horizontal plane"
