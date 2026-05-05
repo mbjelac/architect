@@ -97,3 +97,15 @@
 - [done] add visual tests colors.spec.ts
     - test pyr3 with a color
     - test multiple pyramids with different colors, scaled to 60% and moved off center each in it's own direction
+
+#8 pyramids with more than 4 sides (5-9)
+
+#9 prisms
+
+#10 sphere
+
+#11 cylinder
+
+#12 cone
+
+#13 cut-out bodies
