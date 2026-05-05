@@ -1,4 +1,4 @@
-export type BodyType = "pyr3";
+export type BodyType = "pyr3" | "pyr4";
 
 export interface CreateBody {
   type: BodyType;
@@ -22,13 +22,27 @@ function parseLine(line: string): CreateBody | null {
 
   if (trimmed.startsWith("pyr3")) {
     const rest = trimmed.slice(4).trim();
-    const translate = parseTranslate(rest);
-    const rotate = parseRotate(rest);
-    const scale = parseScale(rest);
-    return {type: "pyr3", translate, rotate, scale};
+    return parseBody("pyr3", rest);
+  }
+
+  if (trimmed.startsWith("pyr4")) {
+    const rest = trimmed.slice(4).trim();
+    return parseBody("pyr4", rest);
+  }
+
+  if (trimmed.startsWith("pyr")) {
+    const rest = trimmed.slice(3).trim();
+    return parseBody("pyr4", rest);
   }
 
   return null;
+}
+
+function parseBody(type: BodyType, rest: string): CreateBody {
+  const translate = parseTranslate(rest);
+  const rotate = parseRotate(rest);
+  const scale = parseScale(rest);
+  return {type, translate, rotate, scale};
 }
 
 function parseTranslate(str: string): [number, number, number] | null {

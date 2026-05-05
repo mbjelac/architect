@@ -10,3 +10,24 @@ test("pyr3 produces 3-sided pyramid", async ({ page }) => {
   await page.locator("#editor textarea").fill("pyr3");
   await expectScreenshot(page, "pyr3");
 });
+
+test("pyr4 produces 4-sided pyramid", async ({ page }) => {
+  await page.locator("#editor textarea").fill("pyr4");
+  await expectScreenshot(page, "pyr4");
+});
+
+test("pyr produces 4-sided pyramid", async ({ page }) => {
+  await page.locator("#editor textarea").fill("pyr");
+  await expectScreenshot(page, "pyr");
+});
+
+test("multiple pyramids, mixed 3-sided and 4-sided", async ({ page }) => {
+  const commands = [
+    "pyr3 s(55) t(-30, -30, -20)",
+    "pyr s(40) t(30, -30, 0)",
+    "pyr3 s(70) t(-30, 30, 10)",
+    "pyr4 s(60) t(30, 30, 0)",
+  ].join("\n");
+  await page.locator("#editor textarea").fill(commands);
+  await expectScreenshot(page, "multiple-mixed-pyramids");
+});
