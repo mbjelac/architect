@@ -88,3 +88,5 @@ do these steps and report after each step. then wait for my approval to continue
 - command "pyr" or "pyr4" produces a 4-sided pyramid
 - same modification functions work on it (rotate, translate, scale)
 - add visual test for displaying 4-sided pyramid to shapes.spec.js
+- add visual tests for displaying multiple pyramids, some 3-sides, some 4-sided
+    - to fit, scale them down to 60% and translate each from the center, each in it's own direction
