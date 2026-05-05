@@ -1,6 +1,3 @@
-this is a copy of an existing codebase.
-do these steps and report after each step. then wait for my approval to continue.
-
 #1 [done] get to Architect project baseline
 - [done] study what the existing code does
 - [done] modify it so that
