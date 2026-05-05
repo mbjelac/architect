@@ -2,6 +2,8 @@ import { test, expect, Page } from "@playwright/test";
 
 export { test, expect };
 
+export type TestCaseTemplate = (value: number) => string;
+
 export function setup() {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");

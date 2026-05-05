@@ -1,8 +1,8 @@
-import { test, setup, expectScreenshot } from "./test-utils";
+import { test, setup, expectScreenshot, type TestCaseTemplate } from "./test-utils";
 
 setup();
 
-const translateCases = [
+const translateCases: { axis: string; template: TestCaseTemplate }[] = [
   { axis: "left-right", template: (v) => `pyr3 t(${v},0,0)` },
   { axis: "forward-backward", template: (v) => `pyr3 t(0,${v},0)` },
   { axis: "up-down", template: (v) => `pyr3 t(0,0,${v})` },

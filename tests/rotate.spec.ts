@@ -1,8 +1,8 @@
-import { test, setup, expectScreenshot } from "./test-utils";
+import { test, setup, expectScreenshot, type TestCaseTemplate } from "./test-utils";
 
 setup();
 
-const rotateCases = [
+const rotateCases: { axis: string; template: TestCaseTemplate }[] = [
   { axis: "horizontal", template: (v) => `pyr3 r(${v},0)` },
   { axis: "vertical", template: (v) => `pyr3 r(0,${v})` },
 ];

@@ -1,8 +1,8 @@
-import { test, setup, expectScreenshot } from "./test-utils";
+import { test, setup, expectScreenshot, type TestCaseTemplate } from "./test-utils";
 
 setup();
 
-const scaleCases = [
+const scaleCases: { axis: string; template: TestCaseTemplate }[] = [
   { axis: "x", template: (v) => `pyr3 s(${v},100,100)` },
   { axis: "y", template: (v) => `pyr3 s(100,${v},100)` },
   { axis: "z", template: (v) => `pyr3 s(100,100,${v})` },
