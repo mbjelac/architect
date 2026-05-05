@@ -5,6 +5,7 @@ export interface CreateBody {
   translate: [number, number, number] | null;
   rotate: [number, number] | null;
   scale: [number, number, number] | null;
+  color: string | null;
 }
 
 export function readCommands(): CreateBody[] {
@@ -42,7 +43,8 @@ function parseBody(type: BodyType, rest: string): CreateBody {
   const translate = parseTranslate(rest);
   const rotate = parseRotate(rest);
   const scale = parseScale(rest);
-  return {type, translate, rotate, scale};
+  const color = parseColor(rest);
+  return {type, translate, rotate, scale, color};
 }
 
 function parseTranslate(str: string): [number, number, number] | null {
@@ -68,4 +70,10 @@ function parseScale(str: string): [number, number, number] | null {
     return [v, v, v];
   }
   return null;
+}
+
+function parseColor(str: string): string | null {
+  const match = str.match(/c\(#([0-9a-fA-F]{6})\)/);
+  if (!match) return null;
+  return `#${match[1]}`;
 }

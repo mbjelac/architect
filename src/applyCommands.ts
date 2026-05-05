@@ -29,9 +29,9 @@ export function applyCommands(p: p5, commands: CreateBody[]) {
       );
     }
     if (command.type === "pyr3") {
-      drawPyramid3(p);
+      drawPyramid3(p, command.color ?? undefined);
     } else if (command.type === "pyr4") {
-      drawPyramid4(p);
+      drawPyramid4(p, command.color ?? undefined);
     }
     p.pop();
   }

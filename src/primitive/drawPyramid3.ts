@@ -1,7 +1,8 @@
 import p5 from "p5";
 import {BLOCK_SIZE} from "../constants";
+import {shade} from "./shade";
 
-export function drawPyramid3(p: p5) {
+export function drawPyramid3(p: p5, color?: string) {
   const h = BLOCK_SIZE / 2;
   const floorY = -(BLOCK_SIZE * 0.15) / 2;
   const apexY = floorY - BLOCK_SIZE;
@@ -16,7 +17,7 @@ export function drawPyramid3(p: p5) {
   const v2: [number, number, number] = [r * Math.cos(angle2), floorY, r * Math.sin(angle2)];
   const apex: [number, number, number] = [0, apexY, 0];
 
-  p.fill(160, 160, 160);
+  p.fill(...shade(color, 1.0));
 
   // Base
   p.beginShape();
@@ -26,21 +27,21 @@ export function drawPyramid3(p: p5) {
   p.endShape(p.CLOSE);
 
   // Side faces
-  p.fill(140, 140, 140);
+  p.fill(...shade(color, 0.875));
   p.beginShape();
   p.vertex(...v0);
   p.vertex(...v1);
   p.vertex(...apex);
   p.endShape(p.CLOSE);
 
-  p.fill(120, 120, 120);
+  p.fill(...shade(color, 0.75));
   p.beginShape();
   p.vertex(...v1);
   p.vertex(...v2);
   p.vertex(...apex);
   p.endShape(p.CLOSE);
 
-  p.fill(100, 100, 100);
+  p.fill(...shade(color, 0.625));
   p.beginShape();
   p.vertex(...v2);
   p.vertex(...v0);
