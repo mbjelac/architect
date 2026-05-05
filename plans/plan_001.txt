@@ -21,3 +21,10 @@ do these steps and report after each step. then wait for my approval to continue
     - after this change run the single playwright test. it should fail. open the snapshot, then wait for me to confirm is it ok
     - if confirmed, update snapshots
 - [done] add playwright test to verify that "pyr3" produces the 3-sided pyramid
+- refactor visual.spec.js to remove duplication
+    - assert
+        - assert section start with waitForTimeout and ends with expect()
+        - png file name is the only thing that changes (and only the file name, not extension)
+        - this can all be put into a expectScreenshot("name") function
+    - setup
+        - page.goto & page.waitForSelector("canvas") can be put into beforeEach
