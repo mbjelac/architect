@@ -1,27 +1,23 @@
 import { test, expect } from "@playwright/test";
 
-test("default scene", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.waitForSelector("canvas");
+});
 
-  // Wait for WebGL to render a few frames and stabilize
-  await page.waitForTimeout(1000);
-
-  const canvas = page.locator("#canvas-container");
-  await expect(canvas).toHaveScreenshot("default-scene.png", {
-    maxDiffPixelRatio: 0.01,
-  });
+test("default scene", async ({ page }) => {
+  await expectScreenshot(page, "default-scene");
 });
 
 test("pyr3 produces 3-sided pyramid", async ({ page }) => {
-  await page.goto("/");
-  await page.waitForSelector("canvas");
-
   await page.locator("#editor textarea").fill("pyr3");
-  await page.waitForTimeout(1000);
+  await expectScreenshot(page, "pyr3");
+});
 
+async function expectScreenshot(page, name) {
+  await page.waitForTimeout(1000);
   const canvas = page.locator("#canvas-container");
-  await expect(canvas).toHaveScreenshot("pyr3.png", {
+  await expect(canvas).toHaveScreenshot(`${name}.png`, {
     maxDiffPixelRatio: 0.01,
   });
-});
+}
