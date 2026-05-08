@@ -203,9 +203,12 @@
         - if there is no color function, add it to the line
 - visual tests
     - write visual tests for using the editor to:
-        - rotating
-        - translating
-        - scaling
-        - color
-        - manipulating multiple shapes
-        - having a lot of subpanels and scrolling them
+        - create shape and change it to torus
+        - create shape and rotate it
+        - create shape and translate it
+        - create shape and scale it
+        - create shape and color it
+        - create shape and apply all functions to it
+        - create multiple shapes and change them all in various ways
+        - create a lot of shapes so their subpanels no longer fit vertically, then scroll through them
+
