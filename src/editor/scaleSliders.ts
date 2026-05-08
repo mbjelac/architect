@@ -41,12 +41,6 @@ export function addScaleSliders(
   lockBtn.addEventListener("click", () => {
     state.scaleLocked = !state.scaleLocked;
     lockBtn.innerHTML = state.scaleLocked ? LOCK_LOCKED : LOCK_UNLOCKED;
-    if (state.scaleLocked) {
-      const val = sliders[0].slider.value;
-      sliders[1].slider.value = val;
-      sliders[2].slider.value = val;
-      update();
-    }
   });
   group.appendChild(lockBtn);
 
@@ -64,13 +58,31 @@ export function addScaleSliders(
     );
   };
 
-  for (const { slider } of sliders) {
-    slider.addEventListener("input", () => {
+  const prevValues = [100, 100, 100];
+
+  for (let i = 0; i < sliders.length; i++) {
+    sliders[i].slider.addEventListener("input", () => {
       if (state.scaleLocked) {
-        const val = slider.value;
-        for (const s of sliders) {
-          s.slider.value = val;
+        const newVal = parseInt(sliders[i].slider.value);
+        const delta = newVal - prevValues[i];
+
+        // Check if any slider would exceed its limit
+        const min = 1;
+        const max = 200;
+        let clampedDelta = delta;
+        for (let j = 0; j < sliders.length; j++) {
+          const projected = prevValues[j] + clampedDelta;
+          if (projected < min) clampedDelta = min - prevValues[j];
+          if (projected > max) clampedDelta = max - prevValues[j];
         }
+
+        for (let j = 0; j < sliders.length; j++) {
+          const clamped = Math.max(min, Math.min(max, prevValues[j] + clampedDelta));
+          sliders[j].slider.value = String(clamped);
+          prevValues[j] = clamped;
+        }
+      } else {
+        prevValues[i] = parseInt(sliders[i].slider.value);
       }
       update();
     });
