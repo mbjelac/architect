@@ -99,10 +99,21 @@
     - test multiple pyramids with different colors, scaled to 60% and moved off center each in it's own direction
 
 #8 pyramids with more than 4 sides (5-9)
+- implement pyr4, pyr5, etc. until pyr9
+    - follow same patterns as for pyr3 and pyr4
+- add visual tests for every new pyramid
 
 #9 prisms
+- implement pri3, pri4, pri5, etc. until pri9
+    - these are prisms with 3 or more sides
+    - all functions which are applied to pyramids are also applied to prisms (translate, rotate, scale, color)
+- add visual tests for every prism
 
 #10 sphere
+- implement sph
+    - this renders a sphere
+    - all functions which are applied to pyramids are also applied to the sphere (translate, rotate, scale, color)
+- add visual tests for a sphere modified by functions
 
 #11 cylinder
 
