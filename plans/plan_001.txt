@@ -145,3 +145,22 @@
     - in it's own file "wireframeToggle.spec.ts"
     - populate the canvas with a red sphere
     - turn off wireframe
+
+#15 editor UI
+- layout
+    - put the text area in the bottom half of the left side
+    - above the text area there is a space for the editor panel
+- shapes
+    - on top of the editor panel there is a "+" button
+    - the button adds a new line to the text "pyr"
+    - as the line is added, the editor panel also adds a sub-panel underneath the button
+    - if there is already a sub-panel, the new one is added underneath it
+    - if there are more panels than fit, they scroll (only the subpanels, the "+" button stays visible)
+    - a new subpanel has a symbol of a 4-sided pyramid to it's left
+- changing shape
+    - the pyramid symbol in subpanels is clickable
+    - clicking it displays a popup with a list of shapes
+    - clicking a shape in the list replaces the current shape in the editor panel and also changes the command in the text area to the selected shape
+    - selecting the shape in the 1st subpanel changes the 1st line in the text area
+        - selecting the shape in the 2nd subpanel changes the 2st line in the text area
+        - and so on
