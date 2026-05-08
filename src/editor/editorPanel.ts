@@ -2,6 +2,7 @@ import { getTextarea } from "./editorWidgets";
 import { addRotationSliders } from "./rotationSliders";
 import { addTranslateSliders } from "./translateSliders";
 import { addScaleSliders } from "./scaleSliders";
+import { addColorPicker } from "./colorPicker";
 
 interface ShapeDef {
   command: string;
@@ -21,6 +22,7 @@ export interface SubpanelState {
   scaleX: number;
   scaleY: number;
   scaleZ: number;
+  color: string | null;
 }
 
 const shapes: ShapeDef[] = [
@@ -121,7 +123,7 @@ function createSubpanel(shape: ShapeDef): SubpanelState {
   label.textContent = shape.label;
   el.appendChild(label);
 
-  const state: SubpanelState = { shape, element: el, shapeBtn, rotateX: 0, rotateY: 0, translateX: 0, translateY: 0, translateZ: 0, scaleX: 100, scaleY: 100, scaleZ: 100 };
+  const state: SubpanelState = { shape, element: el, shapeBtn, rotateX: 0, rotateY: 0, translateX: 0, translateY: 0, translateZ: 0, scaleX: 100, scaleY: 100, scaleZ: 100, color: null };
 
   shapeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -131,6 +133,7 @@ function createSubpanel(shape: ShapeDef): SubpanelState {
   addRotationSliders(el, state, subpanels);
   addTranslateSliders(el, state, subpanels);
   addScaleSliders(el, state, subpanels);
+  addColorPicker(el, state, subpanels);
 
   return state;
 }

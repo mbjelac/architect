@@ -194,7 +194,7 @@
     - the sliders do not stretch across the whole subpanel, as there will be more widgets
     - each slider has a small "⛌" button next to it
         - clicking the button changes the slider's value to 100
-- color
+- [done] color
     - each subpanel has a color picker widget
     - the color picker pops up and the color can be selected
     - when color is being selected, it's hex code is displayed
