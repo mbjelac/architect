@@ -3,6 +3,7 @@ import {drawFloor} from "./drawFloor";
 import {readCommands} from "./readCommands";
 import {applyCommands} from "./applyCommands";
 import {BLOCK_SIZE} from "./constants";
+import {initEditorPanel} from "./editorPanel";
 
 const sketch = (p: p5) => {
   let wireframeOn = true;
@@ -40,3 +41,4 @@ const sketch = (p: p5) => {
 };
 
 new p5(sketch);
+initEditorPanel();
