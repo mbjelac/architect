@@ -172,7 +172,7 @@
         - if there is no rotate function, add it to the line
     - the sliders have the letter R in front of them vertically centered in the subpanel
     - the sliders do not stretch across the whole subpanel, as there will be more widgets
-- translating
+- [done] translating
     - each subpanel has three slider widgets one beneath the other
     - all sliders input values from -100 to 100
     - all initial values are 0
@@ -183,7 +183,7 @@
     - the sliders do not stretch across the whole subpanel, as there will be more widgets
     - each slider has a small "⛌" button next to it
         - clicking the button changes the slider's value to 0
-- scaling
+- [done] scaling
     - each subpanel has three slider widgets one beneath the other
     - all sliders input values from 1 to 200
     - all initial values are 100
