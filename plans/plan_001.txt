@@ -164,3 +164,11 @@
     - selecting the shape in the 1st subpanel changes the 1st line in the text area
         - selecting the shape in the 2nd subpanel changes the 2st line in the text area
         - and so on
+- rotating
+    - each subpanel has two slider widgets one beneath the other
+    - both sliders input values from 0 to 360
+    - when either is changed, update the subpanel's line with the rotate function ("r(x, y)") where x is the value of the top slider and y the value of the bottom one
+        - if there is already a rotate function, update it's values
+        - if there is no rotate function, add it to the line
+    - the sliders have the letter R infront of them vertically centered in the subpanel
+    - the sliders do not stretch across the whole subpanel, as there will be more widgets
