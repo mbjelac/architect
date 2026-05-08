@@ -126,3 +126,9 @@
     - this renders a cone
     - all functions which are applied to pyramids are also applied to the cone (translate, rotate, scale, color)
 - add visual tests for a cone modified by functions
+
+#13 torus
+- implement tor
+    - this renders a torus
+    - all functions which are applied to pyramids are also applied to the torus (translate, rotate, scale, color)
+- add visual tests for a torus modified by functions
