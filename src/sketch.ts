@@ -14,6 +14,14 @@ const sketch = (p: p5) => {
     canvas.parent(container);
     p.ortho();
 
+    const camDist = 800;
+    const camAngleY = Math.PI / 4;
+    const camAngleX = Math.PI / 4;
+    const camX = camDist * Math.sin(camAngleY) * Math.cos(camAngleX);
+    const camY = -camDist * Math.sin(camAngleX);
+    const camZ = camDist * Math.cos(camAngleY) * Math.cos(camAngleX);
+    p.camera(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
+
     const toggle = document.getElementById("wireframe-toggle")!;
     toggle.addEventListener("click", () => {
       wireframeOn = !wireframeOn;
@@ -24,8 +32,6 @@ const sketch = (p: p5) => {
   p.draw = () => {
     p.background(30);
     p.orbitControl();
-    p.rotateX(-Math.PI / 4);
-    p.rotateY(Math.PI / 4);
     if (wireframeOn) {
       p.stroke(150);
     } else {
