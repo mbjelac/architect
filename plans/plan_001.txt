@@ -201,3 +201,11 @@
     - when color is selected, the hex code is applied to the subpanel's line with the color function ("c(x)") where x is the hex code
         - if there is already a color function, update it's values
         - if there is no color function, add it to the line
+- visual tests
+    - write visual tests for using the editor to:
+        - rotating
+        - translating
+        - scaling
+        - color
+        - manipulating multiple shapes
+        - having a lot of subpanels and scrolling them
