@@ -211,4 +211,14 @@
         - create shape and apply all functions to it
         - create multiple shapes and change them all in various ways
         - create a lot of shapes so their subpanels no longer fit vertically, then scroll through them
-
+- rotation not friendly
+    - rotation sliders should have value range -180 to 180
+    - initial values are 0
+    - each has small "⛌" button next to it
+        - clicking the button changes the slider's value to 0
+- shape can be scaled in all 3 axes together
+    - the three scale sliders have a lock icon next to them, vertically centered in the subpanel
+    - initial appearance of the lock icon is unlocked and so is the subpanel editor state scaleLocked=false
+    - clicking the lock icon toggles it from unlocked to locked and vice versa, and also flips the value of scaleLocked
+    - when scaleLocked is set to true, 2nd and 3rd scale slider are set to the value of 1st
+    - when scaleLocked is true and any scale slider is moved, all the sliders are moved together
