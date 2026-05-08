@@ -1,5 +1,6 @@
 import { getTextarea } from "./editorWidgets";
 import { addRotationSliders } from "./rotationSliders";
+import { addTranslateSliders } from "./translateSliders";
 
 interface ShapeDef {
   command: string;
@@ -13,6 +14,9 @@ export interface SubpanelState {
   shapeBtn: HTMLElement;
   rotateX: number;
   rotateY: number;
+  translateX: number;
+  translateY: number;
+  translateZ: number;
 }
 
 const shapes: ShapeDef[] = [
@@ -113,7 +117,7 @@ function createSubpanel(shape: ShapeDef): SubpanelState {
   label.textContent = shape.label;
   el.appendChild(label);
 
-  const state: SubpanelState = { shape, element: el, shapeBtn, rotateX: 0, rotateY: 0 };
+  const state: SubpanelState = { shape, element: el, shapeBtn, rotateX: 0, rotateY: 0, translateX: 0, translateY: 0, translateZ: 0 };
 
   shapeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -121,6 +125,7 @@ function createSubpanel(shape: ShapeDef): SubpanelState {
   });
 
   addRotationSliders(el, state, subpanels);
+  addTranslateSliders(el, state, subpanels);
 
   return state;
 }
