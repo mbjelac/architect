@@ -1,6 +1,7 @@
 import p5 from "p5";
 import {drawPyramid} from "./primitive/drawPyramid";
 import {drawPrism} from "./primitive/drawPrism";
+import {drawSphere} from "./primitive/drawSphere";
 import {CreateBody} from "./readCommands";
 import {BLOCK_SIZE} from "./constants";
 
@@ -44,6 +45,9 @@ export function applyCommands(p: p5, commands: CreateBody[]) {
     const priN = priSides[command.type];
     if (priN) {
       drawPrism(p, priN, color);
+    }
+    if (command.type === "sph") {
+      drawSphere(p, color);
     }
     p.pop();
   }
