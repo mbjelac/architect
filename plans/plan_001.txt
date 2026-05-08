@@ -109,11 +109,11 @@
     - all functions which are applied to pyramids are also applied to prisms (translate, rotate, scale, color)
 - [done] add visual tests for every prism
 
-#10 sphere
-- implement sph
+#10 [done] sphere
+- [done] implement sph
     - this renders a sphere
     - all functions which are applied to pyramids are also applied to the sphere (translate, rotate, scale, color)
-- add visual tests for a sphere modified by functions
+- [done] add visual tests for a sphere modified by functions
 
 #11 cylinder
 - implement cyl
