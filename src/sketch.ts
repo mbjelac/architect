@@ -5,11 +5,19 @@ import {applyCommands} from "./applyCommands";
 import {BLOCK_SIZE} from "./constants";
 
 const sketch = (p: p5) => {
+  let wireframeOn = true;
+
   p.setup = () => {
     const container = document.getElementById("canvas-container")!;
     const canvas = p.createCanvas(container.offsetWidth, container.offsetHeight, p.WEBGL);
     canvas.parent(container);
     p.ortho();
+
+    const toggle = document.getElementById("wireframe-toggle")!;
+    toggle.addEventListener("click", () => {
+      wireframeOn = !wireframeOn;
+      toggle.classList.toggle("on", wireframeOn);
+    });
   };
 
   p.draw = () => {
@@ -17,7 +25,11 @@ const sketch = (p: p5) => {
     p.orbitControl();
     p.rotateX(-Math.PI / 4);
     p.rotateY(Math.PI / 4);
-    p.stroke(150);
+    if (wireframeOn) {
+      p.stroke(150);
+    } else {
+      p.noStroke();
+    }
     drawFloor(p, BLOCK_SIZE);
 
     const commands = readCommands();

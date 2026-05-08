@@ -133,15 +133,15 @@
     - all functions which are applied to pyramids are also applied to the torus (translate, rotate, scale, color)
 - [done] add visual tests for a torus modified by functions
 
-#14 wireframe toggle
-- implement a UI widget for toggling whether wireframe is visible in the rendering or not
+#14 [done] wireframe toggle
+- [done] implement a UI widget for toggling whether wireframe is visible in the rendering or not
     - functions like a html checkbox
     - looks like a horizontal toggle switch (gray background, white knob)
     - does not have a label "Wireframe visible"; instead has a vector icon which resembles a wireframe of a shape
     - toggles between wireframe and solid
     - is located in the top right corner of the viewport
     - default value is turned on
-- add visual test
+- [done] add visual test
     - in it's own file "wireframeToggle.spec.ts"
     - populate the canvas with a red sphere
     - turn off wireframe
