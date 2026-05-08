@@ -4,68 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Architect</title>
-  <style>
-    body { margin: 0; display: flex; height: 100vh; background: #1a1a1a; }
-    #editor { width: 50%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }
-    #editor-panel { flex: 1; display: flex; flex-direction: column; background: #2a2a2a; border-bottom: 1px solid #444; overflow: hidden; }
-    #editor-panel .add-btn { flex-shrink: 0; margin: 8px; padding: 6px 14px; background: #444; color: #eee; border: none; border-radius: 4px; cursor: pointer; font-size: 18px; align-self: flex-start; }
-    #editor-panel .add-btn:hover { background: #555; }
-    #editor-panel .subpanels { flex: 1; overflow-y: auto; padding: 0 8px 8px; }
-    #editor-panel .subpanel { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 4px; background: #333; border-radius: 4px; }
-    #editor-panel .shape-btn { width: 32px; height: 32px; background: none; border: 1px solid #666; border-radius: 4px; cursor: pointer; padding: 2px; display: flex; align-items: center; justify-content: center; }
-    #editor-panel .shape-btn:hover { border-color: #aaa; }
-    #editor-panel .shape-btn svg { width: 24px; height: 24px; }
-    #editor-panel .shape-label { color: #ccc; font-family: monospace; font-size: 13px; min-width: 36px; }
-    #editor-panel .slider-group { display: flex; align-items: center; gap: 4px; margin-left: 8px; }
-    #editor-panel .slider-letter { color: #888; font-family: monospace; font-size: 14px; font-weight: bold; }
-    #editor-panel .sliders-col { display: flex; flex-direction: column; gap: 2px; }
-    #editor-panel .panel-slider { width: 80px; height: 14px; accent-color: #777; cursor: pointer; }
-    #editor-panel .slider-row { display: flex; align-items: center; gap: 2px; }
-    #editor-panel .reset-btn { width: 18px; height: 18px; background: none; border: 1px solid #555; border-radius: 3px; color: #888; font-size: 10px; cursor: pointer; padding: 0; line-height: 18px; text-align: center; }
-    #editor-panel .reset-btn:hover { border-color: #aaa; color: #ccc; }
-    #shape-popup { display: none; position: fixed; background: #333; border: 1px solid #555; border-radius: 6px; padding: 6px; z-index: 100; max-height: 300px; overflow-y: auto; }
-    #shape-popup .shape-option { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; border-radius: 4px; color: #ccc; font-family: monospace; font-size: 13px; }
-    #shape-popup .shape-option:hover { background: #444; }
-    #shape-popup .shape-option svg { width: 24px; height: 24px; }
-    #editor textarea { width: 100%; height: 50%; box-sizing: border-box; background: #2a2a2a; color: #eee; font-family: monospace; font-size: 14px; padding: 12px; border: none; resize: none; outline: none; }
-    #canvas-container { width: 50%; height: 100%; position: relative; }
-    #wireframe-toggle {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
-    }
-    #wireframe-toggle .icon {
-      width: 20px;
-      height: 20px;
-      opacity: 0.7;
-    }
-    #wireframe-toggle .switch {
-      width: 36px;
-      height: 20px;
-      background: #555;
-      border-radius: 10px;
-      position: relative;
-      transition: background 0.2s;
-    }
-    #wireframe-toggle .switch .knob {
-      width: 16px;
-      height: 16px;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: left 0.2s;
-    }
-    #wireframe-toggle.on .switch { background: #777; }
-    #wireframe-toggle.on .switch .knob { left: 18px; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="editor">
