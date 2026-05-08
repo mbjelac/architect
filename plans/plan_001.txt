@@ -201,7 +201,7 @@
     - when color is selected, the hex code is applied to the subpanel's line with the color function ("c(x)") where x is the hex code
         - if there is already a color function, update it's values
         - if there is no color function, add it to the line
-- visual tests
+- [done] visual tests
     - write visual tests for using the editor to:
         - create shape and change it to torus
         - create shape and rotate it
