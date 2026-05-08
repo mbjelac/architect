@@ -147,28 +147,57 @@
     - turn off wireframe
 
 #15 editor UI
-- layout
+- [done] layout
     - put the text area in the bottom half of the left side
     - above the text area there is a space for the editor panel
-- shapes
+- [done] shapes
     - on top of the editor panel there is a "+" button
     - the button adds a new line to the text "pyr"
     - as the line is added, the editor panel also adds a sub-panel underneath the button
     - if there is already a sub-panel, the new one is added underneath it
     - if there are more panels than fit, they scroll (only the subpanels, the "+" button stays visible)
     - a new subpanel has a symbol of a 4-sided pyramid to it's left
-- changing shape
+- [done] changing shape
     - the pyramid symbol in subpanels is clickable
     - clicking it displays a popup with a list of shapes
     - clicking a shape in the list replaces the current shape in the editor panel and also changes the command in the text area to the selected shape
     - selecting the shape in the 1st subpanel changes the 1st line in the text area
         - selecting the shape in the 2nd subpanel changes the 2st line in the text area
         - and so on
-- rotating
+- [done] rotating
     - each subpanel has two slider widgets one beneath the other
     - both sliders input values from 0 to 360
     - when either is changed, update the subpanel's line with the rotate function ("r(x, y)") where x is the value of the top slider and y the value of the bottom one
         - if there is already a rotate function, update it's values
         - if there is no rotate function, add it to the line
-    - the sliders have the letter R infront of them vertically centered in the subpanel
+    - the sliders have the letter R in front of them vertically centered in the subpanel
     - the sliders do not stretch across the whole subpanel, as there will be more widgets
+- translating
+    - each subpanel has three slider widgets one beneath the other
+    - all sliders input values from -100 to 100
+    - all initial values are 0
+    - when either is changed, update the subpanel's line with the translate function ("t(x, y, z)") where x, y & z are the values of sliders
+        - if there is already a translate function, update it's values
+        - if there is no translate function, add it to the line
+    - the sliders have the letter T in front of them vertically centered in the subpanel
+    - the sliders do not stretch across the whole subpanel, as there will be more widgets
+    - each slider has a small "⛌" button next to it
+        - clicking the button changes the slider's value to 0
+- scaling
+    - each subpanel has three slider widgets one beneath the other
+    - all sliders input values from 1 to 200
+    - all initial values are 100
+    - when either is changed, update the subpanel's line with the scale function ("s(x, y, z)") where x, y & z are the values of sliders
+        - if there is already a scale function, update it's values
+        - if there is no scale function, add it to the line
+    - the sliders have the letter S in front of them vertically centered in the subpanel
+    - the sliders do not stretch across the whole subpanel, as there will be more widgets
+    - each slider has a small "⛌" button next to it
+        - clicking the button changes the slider's value to 100
+- color
+    - each subpanel has a color picker widget
+    - the color picker pops up and the color can be selected
+    - when color is being selected, it's hex code is displayed
+    - when color is selected, the hex code is applied to the subpanel's line with the color function ("c(x)") where x is the hex code
+        - if there is already a color function, update it's values
+        - if there is no color function, add it to the line
