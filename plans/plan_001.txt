@@ -211,7 +211,7 @@
         - create shape and apply all functions to it
         - create multiple shapes and change them all in various ways
         - create a lot of shapes so their subpanels no longer fit vertically, then scroll through them
-- rotation not friendly
+- [done] rotation not friendly
     - rotation sliders should have value range -180 to 180
     - initial values are 0
     - each has small "⛌" button next to it

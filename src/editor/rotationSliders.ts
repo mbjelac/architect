@@ -19,21 +19,44 @@ export function addRotationSliders(
   const slidersCol = document.createElement("div");
   slidersCol.className = "sliders-col";
 
-  const sliderX = createSlider(0, 360, 0);
-  const sliderY = createSlider(0, 360, 0);
-  slidersCol.appendChild(sliderX);
-  slidersCol.appendChild(sliderY);
+  const sliderX = createSliderWithReset(-180, 180, 0);
+  const sliderY = createSliderWithReset(-180, 180, 0);
+  slidersCol.appendChild(sliderX.row);
+  slidersCol.appendChild(sliderY.row);
   rotGroup.appendChild(slidersCol);
   el.appendChild(rotGroup);
 
-  sliderX.addEventListener("input", () => {
-    state.rotateX = parseInt(sliderX.value);
+  sliderX.slider.addEventListener("input", () => {
+    state.rotateX = parseInt(sliderX.slider.value);
     updateRotateOnLine(state, subpanels);
   });
-  sliderY.addEventListener("input", () => {
-    state.rotateY = parseInt(sliderY.value);
+  sliderY.slider.addEventListener("input", () => {
+    state.rotateY = parseInt(sliderY.slider.value);
     updateRotateOnLine(state, subpanels);
   });
+}
+
+function createSliderWithReset(
+  min: number,
+  max: number,
+  value: number,
+): { row: HTMLElement; slider: HTMLInputElement } {
+  const row = document.createElement("div");
+  row.className = "slider-row";
+
+  const slider = createSlider(min, max, value);
+  row.appendChild(slider);
+
+  const resetBtn = document.createElement("button");
+  resetBtn.className = "reset-btn";
+  resetBtn.textContent = "⛌";
+  resetBtn.addEventListener("click", () => {
+    slider.value = "0";
+    slider.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  row.appendChild(resetBtn);
+
+  return { row, slider };
 }
 
 function updateRotateOnLine(panel: SubpanelState, subpanels: SubpanelState[]) {
