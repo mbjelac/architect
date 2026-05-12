@@ -47,6 +47,15 @@ export function addTranslateSliders(
   for (const { slider } of sliders) {
     slider.addEventListener("input", update);
   }
+
+  state.setTranslation = (x: number, y: number, z: number) => {
+    state.translateX = x;
+    state.translateY = y;
+    state.translateZ = z;
+    sliders[0].slider.value = String(x);
+    sliders[1].slider.value = String(y);
+    sliders[2].slider.value = String(z);
+  };
 }
 
 function createSliderWithReset(

@@ -1,5 +1,7 @@
 import type { SubpanelState } from "./editorPanel";
 
+export const editorState = { updatingFromWidgets: false };
+
 export function getTextarea(): HTMLTextAreaElement {
   return document.querySelector("#editor textarea") as HTMLTextAreaElement;
 }
@@ -34,5 +36,7 @@ export function updateFunctionOnLine(
 
   lines[idx] = line;
   textarea.value = lines.join("\n");
+  editorState.updatingFromWidgets = true;
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
+  editorState.updatingFromWidgets = false;
 }

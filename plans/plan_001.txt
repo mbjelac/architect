@@ -233,14 +233,14 @@
     - the button has an icon with two rectangles overlapping each other
 - [done] add visual test for duplicating a line
 
-#17 editor: delete
+#17 [done] editor: delete
 - [done] each editor subpanel has a "delete" button
     - clicking the button deletes that subpanel and it's line from the text
     - the button has a trashcan icon
 - [done] add visual test for deleting a line
 
 #18 updating text area updates editor
-- when text area is updated, and the update is valid, update all the editor subpanels to reflect the change
-- add visual test
+- [done] when text area is updated, and the update is valid, update all the editor subpanels to reflect the change
+- [done] add visual test
     - add a line with the editor
     - change the text so subpanel is updated

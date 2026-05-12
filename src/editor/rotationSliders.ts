@@ -34,6 +34,13 @@ export function addRotationSliders(
     state.rotateY = parseInt(sliderY.slider.value);
     updateRotateOnLine(state, subpanels);
   });
+
+  state.setRotation = (x: number, y: number) => {
+    state.rotateX = x;
+    state.rotateY = y;
+    sliderX.slider.value = String(x);
+    sliderY.slider.value = String(y);
+  };
 }
 
 function createSliderWithReset(

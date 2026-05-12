@@ -1,4 +1,4 @@
-import { getTextarea } from "./editorWidgets";
+import { getTextarea, editorState } from "./editorWidgets";
 import { addRotationSliders } from "./rotationSliders";
 import { addTranslateSliders } from "./translateSliders";
 import { addScaleSliders } from "./scaleSliders";
@@ -24,6 +24,10 @@ export interface SubpanelState {
   scaleZ: number;
   scaleLocked: boolean;
   color: string | null;
+  setRotation?: (x: number, y: number) => void;
+  setTranslation?: (x: number, y: number, z: number) => void;
+  setScale?: (x: number, y: number, z: number) => void;
+  setColor?: (hex: string | null) => void;
 }
 
 const shapes: ShapeDef[] = [
@@ -97,7 +101,9 @@ function syncTextarea() {
     }
   }
   textarea.value = lines.join("\n");
+  editorState.updatingFromWidgets = true;
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
+  editorState.updatingFromWidgets = false;
 }
 
 function getShapeCommand(line: string): string | null {
@@ -165,7 +171,9 @@ function deleteSubpanel(target: SubpanelState) {
   // Remove line from textarea
   lines.splice(index, 1);
   textarea.value = lines.join("\n");
+  editorState.updatingFromWidgets = true;
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
+  editorState.updatingFromWidgets = false;
 
   // Remove subpanel from array and DOM
   subpanels.splice(index, 1);
@@ -181,10 +189,19 @@ function duplicateSubpanel(source: SubpanelState) {
   // Insert duplicated line in textarea
   lines.splice(index + 1, 0, lineToDuplicate);
   textarea.value = lines.join("\n");
+  editorState.updatingFromWidgets = true;
   textarea.dispatchEvent(new Event("input", { bubbles: true }));
+  editorState.updatingFromWidgets = false;
 
-  // Create new subpanel with same shape
+  // Create new subpanel with same shape and sync widgets from line
   const newPanel = createSubpanel(source.shape);
+  const [rx, ry] = parseRotate(lineToDuplicate);
+  newPanel.setRotation?.(rx, ry);
+  const [tx, ty, tz] = parseTranslate(lineToDuplicate);
+  newPanel.setTranslation?.(tx, ty, tz);
+  const [sx, sy, sz] = parseScale(lineToDuplicate);
+  newPanel.setScale?.(sx, sy, sz);
+  newPanel.setColor?.(parseColor(lineToDuplicate));
   subpanels.splice(index + 1, 0, newPanel);
 
   // Insert DOM element after source
@@ -226,6 +243,89 @@ function showShapePopup(panel: SubpanelState, anchor: HTMLElement) {
   setTimeout(() => document.addEventListener("click", closePopup), 0);
 }
 
+function findShapeDef(command: string): ShapeDef | null {
+  return shapes.find(s => s.command === command) ?? null;
+}
+
+function parseRotate(line: string): [number, number] {
+  const m = line.match(/r\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
+  return m ? [parseInt(m[1]), parseInt(m[2])] : [0, 0];
+}
+
+function parseTranslate(line: string): [number, number, number] {
+  const m = line.match(/t\(\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
+  return m ? [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])] : [0, 0, 0];
+}
+
+function parseScale(line: string): [number, number, number] {
+  const m3 = line.match(/s\(\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\)/);
+  if (m3) return [parseInt(m3[1]), parseInt(m3[2]), parseInt(m3[3])];
+  const m1 = line.match(/s\(\s*(-?\d+)\s*\)/);
+  if (m1) { const v = parseInt(m1[1]); return [v, v, v]; }
+  return [100, 100, 100];
+}
+
+function parseColor(line: string): string | null {
+  const m = line.match(/c\(#([0-9a-fA-F]{6})\)/);
+  return m ? `#${m[1]}` : null;
+}
+
+function syncSubpanelsFromTextarea() {
+  const textarea = getTextarea();
+  const lines = textarea.value.split("\n").filter(l => l.trim() !== "");
+  const container = document.getElementById("subpanels")!;
+
+  // Build list of valid lines (ones with a recognized shape command)
+  const validLines: { line: string; shape: ShapeDef }[] = [];
+  for (const line of lines) {
+    const cmd = getShapeCommand(line);
+    if (cmd !== null) {
+      const shape = findShapeDef(cmd)!;
+      validLines.push({ line, shape });
+    }
+  }
+
+  // Remove excess subpanels
+  while (subpanels.length > validLines.length) {
+    const removed = subpanels.pop()!;
+    removed.element.remove();
+  }
+
+  // Update existing subpanels and add new ones
+  for (let i = 0; i < validLines.length; i++) {
+    const { line, shape } = validLines[i];
+
+    if (i < subpanels.length) {
+      // Update existing subpanel
+      const panel = subpanels[i];
+      if (panel.shape.command !== shape.command) {
+        panel.shape = shape;
+        panel.shapeBtn.innerHTML = shape.svg;
+        panel.element.querySelector(".shape-label")!.textContent = shape.label;
+      }
+      const [rx, ry] = parseRotate(line);
+      panel.setRotation?.(rx, ry);
+      const [tx, ty, tz] = parseTranslate(line);
+      panel.setTranslation?.(tx, ty, tz);
+      const [sx, sy, sz] = parseScale(line);
+      panel.setScale?.(sx, sy, sz);
+      panel.setColor?.(parseColor(line));
+    } else {
+      // Create new subpanel
+      const panel = createSubpanel(shape);
+      const [rx, ry] = parseRotate(line);
+      panel.setRotation?.(rx, ry);
+      const [tx, ty, tz] = parseTranslate(line);
+      panel.setTranslation?.(tx, ty, tz);
+      const [sx, sy, sz] = parseScale(line);
+      panel.setScale?.(sx, sy, sz);
+      panel.setColor?.(parseColor(line));
+      subpanels.push(panel);
+      container.appendChild(panel.element);
+    }
+  }
+}
+
 export function initEditorPanel() {
   const addBtn = document.getElementById("add-shape-btn")!;
   const subpanelsContainer = document.getElementById("subpanels")!;
@@ -242,6 +342,14 @@ export function initEditorPanel() {
     } else {
       textarea.value = text + defaultShape.command;
     }
+    editorState.updatingFromWidgets = true;
     textarea.dispatchEvent(new Event("input", { bubbles: true }));
+    editorState.updatingFromWidgets = false;
+  });
+
+  getTextarea().addEventListener("input", () => {
+    if (!editorState.updatingFromWidgets) {
+      syncSubpanelsFromTextarea();
+    }
   });
 }

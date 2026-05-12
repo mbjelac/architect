@@ -40,4 +40,15 @@ export function addColorPicker(
       `c(${hex})`,
     );
   });
+
+  state.setColor = (hex: string | null) => {
+    state.color = hex;
+    if (hex) {
+      input.value = hex;
+      hexLabel.textContent = hex;
+    } else {
+      input.value = "#808080";
+      hexLabel.textContent = "";
+    }
+  };
 }

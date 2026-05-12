@@ -87,6 +87,18 @@ export function addScaleSliders(
       update();
     });
   }
+
+  state.setScale = (x: number, y: number, z: number) => {
+    state.scaleX = x;
+    state.scaleY = y;
+    state.scaleZ = z;
+    sliders[0].slider.value = String(x);
+    sliders[1].slider.value = String(y);
+    sliders[2].slider.value = String(z);
+    prevValues[0] = x;
+    prevValues[1] = y;
+    prevValues[2] = z;
+  };
 }
 
 function createSliderWithReset(
