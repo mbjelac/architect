@@ -228,10 +228,10 @@
             - example: if slider 3 is 200 and slider 1 & 2 are 50, moving slider 1 and 2 to the right is not possible
 
 #16 editor: duplicate
-- each editor subpanel has a "duplicate" button
+- [done] each editor subpanel has a "duplicate" button
     - clicking the button duplicates the text line of the subpanel and places it beneath the current one
     - the button has an icon with two rectangles overlapping each other
-- add visual test for duplicating a line
+- [done] add visual test for duplicating a line
 
 #17 editor: delete
 - each editor subpanel has a "delete" button

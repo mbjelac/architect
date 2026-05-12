@@ -131,6 +131,29 @@ test("create multiple shapes and modify them", async ({ page }) => {
   await expectEditorScreenshot(page, "editor-multiple-shapes");
 });
 
+test("duplicate a shape", async ({ page }) => {
+  await addShape(page);
+
+  // Modify the shape: translate and color it
+  const transSliders = page.locator("#editor-panel .slider-group").filter({ hasText: "T" }).locator(".panel-slider");
+  await transSliders.nth(0).fill("-40");
+  const colorInput = page.locator("#editor-panel .color-input").first();
+  await colorInput.evaluate((el: HTMLInputElement) => {
+    el.value = "#e03030";
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+
+  // Click the duplicate button
+  await page.locator("#editor-panel .dup-btn").first().click();
+
+  // Move the duplicated shape to the right so both are visible
+  const subpanels = page.locator("#editor-panel .subpanel");
+  const trans1 = subpanels.nth(1).locator(".slider-group").filter({ hasText: "T" }).locator(".panel-slider");
+  await trans1.nth(0).fill("40");
+
+  await expectEditorScreenshot(page, "editor-duplicate");
+});
+
 test("scroll through many shape subpanels", async ({ page }) => {
   // Add many shapes so they overflow
   for (let i = 0; i < 8; i++) {
