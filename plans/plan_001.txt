@@ -239,7 +239,7 @@
     - the button has a trashcan icon
 - [done] add visual test for deleting a line
 
-#18 updating text area updates editor
+#18 [done] updating text area updates editor
 - [done] when text area is updated, and the update is valid, update all the editor subpanels to reflect the change
 - [done] add visual test
     - add a line with the editor
