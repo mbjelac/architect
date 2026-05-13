@@ -1,4 +1,4 @@
-Introduction: "architect" is just one module of a bigger project. All project code should be in one repository.
+Introduction: The current code is just one module of a bigger project. All project code should be in one repository.
 
 #1 Move current code to 'architect' subfolder
 - move all code to 'architect' subfolder
