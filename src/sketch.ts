@@ -31,7 +31,14 @@ const sketch = (p: p5) => {
 
   p.draw = () => {
     p.background(30);
+
+    // Lighting: fixed world-space position
+    // 3 max translation heights up, 2 max translation lengths back and to the right
+    p.ambientLight(60);
+    p.pointLight(255, 255, 255, 2 * BLOCK_SIZE, -3 * BLOCK_SIZE, -2 * BLOCK_SIZE);
+
     p.orbitControl();
+
     if (wireframeOn) {
       p.stroke(150);
     } else {

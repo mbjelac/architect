@@ -1,6 +1,6 @@
 import p5 from "p5";
 import {BLOCK_SIZE} from "../constants";
-import {shade} from "./shade";
+import {colorToRgb} from "./shade";
 
 export function drawPrism(p: p5, sides: number, color?: string) {
   const h = BLOCK_SIZE / 2;
@@ -17,8 +17,9 @@ export function drawPrism(p: p5, sides: number, color?: string) {
     topVerts.push([x, topY, z]);
   }
 
+  p.fill(...colorToRgb(color));
+
   // Bottom face
-  p.fill(...shade(color, 1.0));
   p.beginShape();
   for (const v of bottomVerts) {
     p.vertex(...v);
@@ -26,7 +27,6 @@ export function drawPrism(p: p5, sides: number, color?: string) {
   p.endShape(p.CLOSE);
 
   // Top face
-  p.fill(...shade(color, 0.9));
   p.beginShape();
   for (const v of topVerts) {
     p.vertex(...v);
@@ -36,8 +36,6 @@ export function drawPrism(p: p5, sides: number, color?: string) {
   // Side faces
   for (let i = 0; i < sides; i++) {
     const next = (i + 1) % sides;
-    const factor = 0.875 - (i * 0.25) / sides;
-    p.fill(...shade(color, factor));
     p.beginShape();
     p.vertex(...bottomVerts[i]);
     p.vertex(...bottomVerts[next]);

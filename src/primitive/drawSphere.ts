@@ -1,6 +1,6 @@
 import p5 from "p5";
 import {BLOCK_SIZE} from "../constants";
-import {shade} from "./shade";
+import {colorToRgb} from "./shade";
 
 export function drawSphere(p: p5, color?: string) {
   const radius = BLOCK_SIZE / 2;
@@ -9,7 +9,7 @@ export function drawSphere(p: p5, color?: string) {
 
   p.push();
   p.translate(0, centerY, 0);
-  p.fill(...shade(color, 0.8));
+  p.fill(...colorToRgb(color));
   p.sphere(radius);
   p.pop();
 }

@@ -1,6 +1,6 @@
 import p5 from "p5";
 import {BLOCK_SIZE} from "../constants";
-import {shade} from "./shade";
+import {colorToRgb} from "./shade";
 
 export function drawPyramid(p: p5, sides: number, color?: string) {
   const h = BLOCK_SIZE / 2;
@@ -14,8 +14,9 @@ export function drawPyramid(p: p5, sides: number, color?: string) {
     vertices.push([h * Math.cos(angle), floorY, h * Math.sin(angle)]);
   }
 
+  p.fill(...colorToRgb(color));
+
   // Base
-  p.fill(...shade(color, 1.0));
   p.beginShape();
   for (const v of vertices) {
     p.vertex(...v);
@@ -24,8 +25,6 @@ export function drawPyramid(p: p5, sides: number, color?: string) {
 
   // Side faces
   for (let i = 0; i < sides; i++) {
-    const factor = 0.875 - (i * 0.25) / sides;
-    p.fill(...shade(color, factor));
     p.beginShape();
     p.vertex(...vertices[i]);
     p.vertex(...vertices[(i + 1) % sides]);
