@@ -249,8 +249,8 @@
 - [done] when text area is updated, this is automatically stored in browser's local storage
     - on app start, the text area is loaded with stored text
 
-#20 lighting
-- do not "shade" by modifying color when drawing shapes
+#20 [done] lighting
+- [done] do not "shade" by modifying color when drawing shapes
     - draw shapes with specified color exactly
-- use a light source which is always in the same location, regardless of user using mouse drag to rotate the viewport
+- [done] use a light source which is always in the same location, regardless of user using mouse drag to rotate the viewport
     - light location should be 3 maximum translation heights away from floor and 2 maximum translation lengths to the back (away from the viewer) and to the right of the viewer
