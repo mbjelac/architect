@@ -204,3 +204,16 @@ test("typing in textarea updates editor subpanels", async ({ page }) => {
   await page.locator(textarea).fill("sph t(30,0,0) r(0,45) c(#e03030)\npri5 s(150,100,80) t(-30,0,0) c(#3030e0)");
   await expectEditorScreenshot(page, "editor-textarea-sync");
 });
+
+test("load last text on startup", async ({ page }) => {
+  // Type text into the textarea
+  await page.locator(textarea).fill("tor t(20,0,30) c(#e03030)\nsph s(150,150,150) c(#3030e0)");
+  await page.locator('#canvas-container[data-rendered="true"]').waitFor({ timeout: 2000 });
+
+  // Reload the page
+  await page.reload();
+  await page.waitForSelector("canvas");
+
+  // Verify the text persisted and subpanels are synced
+  await expectEditorScreenshot(page, "editor-persist-reload");
+});

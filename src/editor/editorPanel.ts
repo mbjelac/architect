@@ -347,9 +347,22 @@ export function initEditorPanel() {
     editorState.updatingFromWidgets = false;
   });
 
-  getTextarea().addEventListener("input", () => {
+  const textarea = getTextarea();
+
+  textarea.addEventListener("input", () => {
+    localStorage.setItem("architect-text", textarea.value);
     if (!editorState.updatingFromWidgets) {
       syncSubpanelsFromTextarea();
     }
   });
+
+  // Load saved text on startup
+  const saved = localStorage.getItem("architect-text");
+  if (saved) {
+    textarea.value = saved;
+    syncSubpanelsFromTextarea();
+    editorState.updatingFromWidgets = true;
+    textarea.dispatchEvent(new Event("input", { bubbles: true }));
+    editorState.updatingFromWidgets = false;
+  }
 }
