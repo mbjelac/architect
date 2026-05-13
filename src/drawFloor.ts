@@ -10,6 +10,7 @@ export function drawFloor(p: p5, s: number) {
   // Top face (green)
   p.fill(...green);
   p.beginShape();
+  p.normal(0, -1, 0);
   p.vertex(-h, -height / 2, -h);
   p.vertex(h, -height / 2, -h);
   p.vertex(h, -height / 2, h);
@@ -19,6 +20,7 @@ export function drawFloor(p: p5, s: number) {
   // Bottom face
   p.fill(...brown);
   p.beginShape();
+  p.normal(0, 1, 0);
   p.vertex(-h, height / 2, -h);
   p.vertex(h, height / 2, -h);
   p.vertex(h, height / 2, h);
@@ -28,6 +30,7 @@ export function drawFloor(p: p5, s: number) {
   // Front face (+z)
   p.fill(...darkBrown);
   p.beginShape();
+  p.normal(0, 0, 1);
   p.vertex(-h, -height / 2, h);
   p.vertex(h, -height / 2, h);
   p.vertex(h, height / 2, h);
@@ -37,6 +40,7 @@ export function drawFloor(p: p5, s: number) {
   // Back face (-z)
   p.fill(...darkBrown);
   p.beginShape();
+  p.normal(0, 0, -1);
   p.vertex(-h, -height / 2, -h);
   p.vertex(h, -height / 2, -h);
   p.vertex(h, height / 2, -h);
@@ -46,6 +50,7 @@ export function drawFloor(p: p5, s: number) {
   // Left face (-x)
   p.fill(...darkBrown);
   p.beginShape();
+  p.normal(-1, 0, 0);
   p.vertex(-h, -height / 2, -h);
   p.vertex(-h, -height / 2, h);
   p.vertex(-h, height / 2, h);
@@ -55,6 +60,7 @@ export function drawFloor(p: p5, s: number) {
   // Right face (+x)
   p.fill(...darkBrown);
   p.beginShape();
+  p.normal(1, 0, 0);
   p.vertex(h, -height / 2, -h);
   p.vertex(h, -height / 2, h);
   p.vertex(h, height / 2, h);

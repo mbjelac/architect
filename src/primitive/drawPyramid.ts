@@ -16,8 +16,9 @@ export function drawPyramid(p: p5, sides: number, color?: string) {
 
   p.fill(...colorToRgb(color));
 
-  // Base
+  // Base (normal pointing down)
   p.beginShape();
+  p.normal(0, 1, 0);
   for (const v of vertices) {
     p.vertex(...v);
   }
@@ -25,10 +26,28 @@ export function drawPyramid(p: p5, sides: number, color?: string) {
 
   // Side faces
   for (let i = 0; i < sides; i++) {
+    const v0 = vertices[i];
+    const v1 = vertices[(i + 1) % sides];
+    const n = faceNormal(v0, v1, apex);
     p.beginShape();
-    p.vertex(...vertices[i]);
-    p.vertex(...vertices[(i + 1) % sides]);
+    p.normal(...n);
+    p.vertex(...v0);
+    p.vertex(...v1);
     p.vertex(...apex);
     p.endShape(p.CLOSE);
   }
+}
+
+function faceNormal(
+  a: [number, number, number],
+  b: [number, number, number],
+  c: [number, number, number],
+): [number, number, number] {
+  const e1: [number, number, number] = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+  const e2: [number, number, number] = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+  const nx = e1[1] * e2[2] - e1[2] * e2[1];
+  const ny = e1[2] * e2[0] - e1[0] * e2[2];
+  const nz = e1[0] * e2[1] - e1[1] * e2[0];
+  const len = Math.sqrt(nx * nx + ny * ny + nz * nz) || 1;
+  return [nx / len, ny / len, nz / len];
 }
