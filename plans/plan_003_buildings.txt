@@ -24,7 +24,9 @@
             - the rendering code is the same one used in architect module
         - each item has the building image (rendered with p5.js just like in architect) and the name beneath it (which is the building type, used prevously)
         - when the name or building image are clicked, a yellow rectangle is drawn around the building and name label
+            - create visual test for this
         - when the name or building which are selected are clicked again, they are unselected (the rectangle around them is removed)
+            - create visual test for this
     - add building to map
         - on app init, a Sektor instance is created
         - if a building is selected and a floor is clicked on, call sektor.createBuilding() with the building type and the clicked floor coords as params
