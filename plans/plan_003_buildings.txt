@@ -13,7 +13,7 @@
     - again calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
     - asserts that result of call (interface CreateBuildingResult) is { error: "locationOccupied", addedBuildings: [] }
 - implement UI
-    - initial display
+    - [done] initial display
         - web page contains p5.js canvas
         - canvas displays a 10x10 grid of "floor" elements in the center, just like the single floor in architect module
         - create initial visual test which asserts that empty grid of floors is displayed
