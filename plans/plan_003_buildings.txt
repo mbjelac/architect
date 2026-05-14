@@ -1,5 +1,5 @@
 #1 create a building
-- initialise scaffolding
+- [done] initialise scaffolding
     - add class Sektor in frontend/src/sektor
     - add test file createBuilding.spec.ts in frontend/src/sektor
 - create test "creates building on free location"
