@@ -1,4 +1,4 @@
-# Architect
+# Sektor
 
 ## Workflow
 
@@ -14,8 +14,8 @@
 10. steps can have sub-steps described in indented bullets, which can also have sub-bullets, etc. do those without waiting for approval.
 11. User may nudge you forward  (approving your work) by instructions like "go", "proceed", "continue", etc. if unsure, ask the user does the instruction mean to continue with plan.
 
-## Project
+## Modules
 
-- p5.js app served with Vite
-- Entry point: `index.html` + `src/sketch.ts`
-- Run dev server: `npm run dev`
+- **architect** — editor for designing 3D shapes from text instructions, with visual UI controls
+- **frontend** — renders 3D scenes using shapes defined in the architect module
+- **shared** — common rendering and parsing code used by both architect and frontend

@@ -17,8 +17,8 @@ Introduction: The current code is just one module of a bigger project. All proje
 - [done] editing of those shapes will NOT be done in frontend, only in architect module
 - [done] set up codebase so the rendering code can be reused between architect & frontend modules
 
-#4 Adjust CLAUDE.md content
-- root folder and module folders should have their own CLAUDE.md
-- root CLAUDE.md should contain a brief list of modules and what they are for
-- architect CLAUDE.md should contain a description of the architect module and how to run tests
-- frontend CLAUDE.md should contain a description of the frontend module
+#4 [done] Adjust CLAUDE.md content
+- [done] root folder and module folders should have their own CLAUDE.md
+- [done] root CLAUDE.md should contain a brief list of modules and what they are for
+- [done] architect CLAUDE.md should contain a description of the architect module and how to run tests
+- [done] frontend CLAUDE.md should contain a description of the frontend module
