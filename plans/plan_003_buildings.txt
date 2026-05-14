@@ -1,7 +1,7 @@
 #1 create a building
 - initialise scaffolding
-    - add class Sektor in frontend/sektor
-    - add test file createBuilding.spec.ts in frontend/sektor
+    - add class Sektor in frontend/src/sektor
+    - add test file createBuilding.spec.ts in frontend/src/sektor
 - create test "creates building on free location"
     - creates new Sektor instance
     - calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
