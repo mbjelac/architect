@@ -10,10 +10,14 @@ export interface CreateBuildingResult {
 }
 
 export class Sektor {
+  private buildings: BuildingCreation[] = [];
+
   createBuilding(building: BuildingCreation): CreateBuildingResult {
-    return {
-      error: undefined,
-      addedBuildings: [building],
-    };
+    if (this.buildings.some((b) => b.x === building.x && b.y === building.y)) {
+      return { error: "locationOccupied", addedBuildings: [] };
+    }
+
+    this.buildings.push(building);
+    return { error: undefined, addedBuildings: [building] };
   }
 }

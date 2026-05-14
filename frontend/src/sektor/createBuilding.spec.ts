@@ -12,4 +12,16 @@ describe("createBuilding", () => {
       addedBuildings: [{ type: "WaterPump", x: 8, y: 6 }],
     });
   });
+
+  it("does not create building on occupied location", () => {
+    const sektor = new Sektor();
+
+    sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 });
+    const result = sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 });
+
+    expect(result).toEqual({
+      error: "locationOccupied",
+      addedBuildings: [],
+    });
+  });
 });
