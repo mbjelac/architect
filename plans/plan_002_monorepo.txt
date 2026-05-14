@@ -15,3 +15,9 @@ Introduction: The current code is just one module of a bigger project. All proje
 - shapes rendered from text instructions (one line per shape) developed within the architect module have to be rendered in the frontend app in the same way
 - editing of those shapes will NOT be done in frontend, only in architect module
 - set up codebase so the rendering code can be reused between architect & frontend modules
+
+#4 Adjust CLAUDE.md content
+- root folder and module folders should have their own CLAUDE.md
+- root CLAUDE.md should contain a brief list of modules and what they are for
+- architect CLAUDE.md should contain a description of the architect module and how to run tests
+- frontend CLAUDE.md should contain a description of the frontend module
