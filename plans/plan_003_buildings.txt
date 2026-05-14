@@ -1,0 +1,14 @@
+#1 create a building
+- initialise scaffolding:
+    - add class Sektor in frontend/sektor
+    - add test file createBuilding.spec.ts in frontend/sektor
+- create test "creates building on free location"
+    - creates new Sektor instance
+    - calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
+    - asserts that result of call (interface CreateBuildingResult) is { error: undefined, addedBuildings: [{ type: "WaterPump", x: 8, y: 6 }] }
+    - implement test by just returning call param (simplest way to pass the test)
+- create test "does not create building on occupied location"
+    - creates new Sektor instance
+    - calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
+    - again calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
+    - asserts that result of call (interface CreateBuildingResult) is { error: "locationOccupied", addedBuildings: [] }
