@@ -10,6 +10,7 @@ Introduction: The current code is just one module of a bigger project. All proje
 - codebase should be in TypeScript
 - set up visual tests using Playwright just like in architect module
 - set up unit testing using vitest
+- configure that local run ("dev") does not run on same port as local run of architect module
 
 #3 Frontend uses architect's code for rendering shapes
 - shapes rendered from text instructions (one line per shape) developed within the architect module have to be rendered in the frontend app in the same way
