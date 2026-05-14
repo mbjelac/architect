@@ -15,6 +15,23 @@
 - implement UI
     - initial display
         - web page contains p5.js canvas
-        - canvas displays a 10x10 grid of "floor" elements, just like the single floor in architect module
+        - canvas displays a 10x10 grid of "floor" elements in the center, just like the single floor in architect module
         - create initial visual test which asserts that empty grid of floors is displayed
-    -
+    - building toolbar
+        - on the left side of canvas there is a list of buildings
+        - each item has the building image (rendered with p5.js just like in architect) and the name beneath it (which is the building type, used prevously)
+        - when the name or building image are clicked, a yellow rectangle is drawn around the building and name label
+        - when the name or building which are selected are clicked again, they are unselected (the rectangle around them is removed)
+        - the list of buildings can be found in frontend/assets/buildings.md
+            - the file is markdown and contains headings which have building names and below eatch heading is a code block with the building rendering code
+            - the rendering code is the same one used in architect module
+    - add building to map
+        - on app init, a Sektor instance is created
+        - if a building is selected and a floor is clicked on, call sektor.createBuilding() with the building type and the clicked floor coords as params
+    - handle creation result
+        - for each element of the CreateBuildingResult.addedBuildings array, render the building on the map at the specified coordinates
+            - the new building has to be rendered on the floor with those coordinates
+            - create visual test which asserts that the building is rendered on the floor
+        - if the CreateBuildingResult.error is not undefined, display error message in red letters on top of canvas
+            - error text should be on the screen for 5 seconds and then disappear
+            - create visual test which creates a building, then tries to create the building again on the same location and asserts that error message is displayed
