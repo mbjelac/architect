@@ -4,13 +4,13 @@ Introduction: The current code is just one module of a bigger project. All proje
 - [done] move all code to 'architect' subfolder
     - all tests from that module must still pass
 
-#2 Initialise frontend app
-- in root of this repo create a folder 'frontend'
-- initialise a new frontend app in this folder using p5.js for rendering
-- codebase should be in TypeScript
-- set up visual tests using Playwright just like in architect module
-- set up unit testing using vitest
-- configure that local run ("dev") does not run on same port as local run of architect module
+#2 [done] Initialise frontend app
+- [done] in root of this repo create a folder 'frontend'
+- [done] initialise a new frontend app in this folder using p5.js for rendering
+- [done] codebase should be in TypeScript
+- [done] set up visual tests using Playwright just like in architect module
+- [done] set up unit testing using vitest
+- [done] configure that local run ("dev") does not run on same port as local run of architect module
 
 #3 Frontend uses architect's code for rendering shapes
 - shapes rendered from text instructions (one line per shape) developed within the architect module have to be rendered in the frontend app in the same way
