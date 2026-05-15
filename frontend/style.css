@@ -52,4 +52,19 @@ html, body {
 #canvas-container {
   flex: 1;
   height: 100%;
+  position: relative;
+}
+
+#error-message {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 100;
+  pointer-events: none;
 }

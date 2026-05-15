@@ -5,14 +5,23 @@ import {applyCommands} from "../../shared/applyCommands";
 import {BLOCK_SIZE} from "../../shared/constants";
 
 let selectedBuilding: string | null = null;
+let buildingCodeMap: Map<string, string> = new Map();
 
 export function getSelectedBuilding(): string | null {
   return selectedBuilding;
 }
 
+export function getBuildingCode(name: string): string | null {
+  return buildingCodeMap.get(name) ?? null;
+}
+
 export function initToolbar() {
   const toolbar = document.getElementById("toolbar")!;
   const buildings = loadBuildings();
+
+  for (const building of buildings) {
+    buildingCodeMap.set(building.name, building.code);
+  }
 
   for (const building of buildings) {
     const item = document.createElement("div");
