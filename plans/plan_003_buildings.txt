@@ -12,7 +12,7 @@
     - calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
     - again calls sektor.createBuilding({ type: "WaterPump", x: 8, y: 6 })
     - asserts that result of call (interface CreateBuildingResult) is { error: "locationOccupied", addedBuildings: [] }
-- implement UI
+- [done] implement UI
     - [done] initial display
         - web page contains p5.js canvas
         - canvas displays a 10x10 grid of "floor" elements in the center, just like the single floor in architect module
@@ -30,7 +30,7 @@
     - [done] add building to map
         - on app init, a Sektor instance is created
         - if a building is selected and a floor is clicked on, call sektor.createBuilding() with the building type and the clicked floor coords as params
-    - handle creation result
+    - [done] handle creation result
         - for each element of the CreateBuildingResult.addedBuildings array, render the building on the map at the specified coordinates
             - the new building has to be rendered on the floor with those coordinates
             - create visual test which asserts that the building is rendered on the floor

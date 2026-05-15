@@ -54,7 +54,8 @@ export function initToolbar() {
       p.setup = () => {
         const canvas = p.createCanvas(size, size, p.WEBGL);
         canvas.parent(canvasContainer);
-        p.ortho();
+        const viewSize = size / 0.7;
+        p.ortho(-viewSize / 2, viewSize / 2, -viewSize / 2, viewSize / 2);
 
         const camDist = 800;
         const camAngleY = Math.PI / 4;

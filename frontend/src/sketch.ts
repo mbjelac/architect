@@ -12,29 +12,7 @@ const placedBuildings: { type: string; x: number; y: number; code: string }[] = 
 let errorTimeout: ReturnType<typeof setTimeout> | null = null;
 
 const ZOOM = 1.2;
-const CAM_DIST = 800;
-const CAM_ANGLE_Y = Math.PI / 4;
-const CAM_ANGLE_X = Math.PI / 6;
 
-// Precompute camera basis vectors
-const fwdX = -Math.sin(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
-const fwdY = Math.sin(CAM_ANGLE_X);
-const fwdZ = -Math.cos(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
-
-// Right = normalize(forward × (0,1,0))
-const rawRightX = fwdY * 0 - fwdZ * 1;  // fwdY*0 - fwdZ*1 = -fwdZ
-const rawRightZ = fwdX * 1 - fwdY * 0;  // fwdX
-// rawRightY = fwdZ*0 - fwdX*0 = 0
-const rightLen = Math.sqrt(rawRightX * rawRightX + rawRightZ * rawRightZ);
-const rightX = rawRightX / rightLen;
-const rightZ = rawRightZ / rightLen;
-
-// Up = right × forward
-const upX = 0 * fwdZ - rightZ * fwdY;
-const upY = rightZ * fwdX - rightX * fwdZ;
-const upZ = rightX * fwdY - 0 * fwdX;
-
-// Floor box half-extents
 const HALF = BLOCK_SIZE / 2;
 const FLOOR_HEIGHT = BLOCK_SIZE * 0.15;
 
@@ -54,7 +32,6 @@ function rayAABB(
   let tmin = -Infinity;
   let tmax = Infinity;
 
-  // X slab
   if (Math.abs(dx) < 1e-10) {
     if (ox < minX || ox > maxX) return null;
   } else {
@@ -66,7 +43,6 @@ function rayAABB(
     if (tmin > tmax) return null;
   }
 
-  // Y slab
   if (Math.abs(dy) < 1e-10) {
     if (oy < minY || oy > maxY) return null;
   } else {
@@ -78,7 +54,6 @@ function rayAABB(
     if (tmin > tmax) return null;
   }
 
-  // Z slab
   if (Math.abs(dz) < 1e-10) {
     if (oz < minZ || oz > maxZ) return null;
   } else {
@@ -93,28 +68,53 @@ function rayAABB(
   return tmin;
 }
 
-function findClickedTile(mx: number, my: number, canvasW: number, canvasH: number): { x: number; y: number } | null {
-  // Convert pixel to NDC (-1 to 1), Y flipped
-  const ndcX = (mx / canvasW) * 2 - 1;
-  const ndcY = (my / canvasH) * 2 - 1;
+// Read the current view matrix from p5's renderer (includes orbit transforms).
+// The view matrix is column-major. World-space camera axes are rows of the 3x3 rotation part.
+// The eye position is recovered by: eye = -R^T * t (where t is the translation column).
+function getCameraBasis(p: p5): {
+  eyeX: number; eyeY: number; eyeZ: number;
+  rightX: number; rightY: number; rightZ: number;
+  upX: number; upY: number; upZ: number;
+  fwdX: number; fwdY: number; fwdZ: number;
+} {
+  const m = (p as any)._renderer.states.uViewMatrix.mat4;
 
-  // Ortho half-extents
-  const hw = canvasW * ZOOM / 2;
-  const hh = canvasH * ZOOM / 2;
+  // Column-major layout: m[col*4 + row]
+  // Row 0 of rotation = right axis
+  const rX = m[0], rY = m[4], rZ = m[8];
+  // Row 1 = up axis
+  const uX = m[1], uY = m[5], uZ = m[9];
+  // Row 2 = -forward axis (camera looks along -Z in view space)
+  const fX = -m[2], fY = -m[6], fZ = -m[10];
 
-  // Ray origin: camera eye + offset along right and up
-  const eyeX = CAM_DIST * Math.sin(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
-  const eyeY = -CAM_DIST * Math.sin(CAM_ANGLE_X);
-  const eyeZ = CAM_DIST * Math.cos(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
+  // Translation column
+  const tx = m[12], ty = m[13], tz = m[14];
+
+  // Eye = -R^T * t
+  const eyeX = -(rX * tx + uX * ty + (-fX) * tz);
+  const eyeY = -(rY * tx + uY * ty + (-fY) * tz);
+  const eyeZ = -(rZ * tx + uZ * ty + (-fZ) * tz);
+
+  return {
+    eyeX, eyeY, eyeZ,
+    rightX: rX, rightY: rY, rightZ: rZ,
+    upX: uX, upY: uY, upZ: uZ,
+    fwdX: fX, fwdY: fY, fwdZ: fZ,
+  };
+}
+
+function findClickedTile(p: p5): { x: number; y: number } | null {
+  const { eyeX, eyeY, eyeZ, rightX, rightY, rightZ, upX, upY, upZ, fwdX, fwdY, fwdZ } = getCameraBasis(p);
+
+  const ndcX = (p.mouseX / p.width) * 2 - 1;
+  const ndcY = (p.mouseY / p.height) * 2 - 1;
+
+  const hw = p.width * ZOOM / 2;
+  const hh = p.height * ZOOM / 2;
 
   const ox = eyeX + rightX * ndcX * hw + upX * ndcY * hh;
-  const oy = eyeY + 0 * ndcX * hw + upY * ndcY * hh;
+  const oy = eyeY + rightY * ndcX * hw + upY * ndcY * hh;
   const oz = eyeZ + rightZ * ndcX * hw + upZ * ndcY * hh;
-
-  // Ray direction: forward (same for all pixels in ortho)
-  const dx = fwdX;
-  const dy = fwdY;
-  const dz = fwdZ;
 
   let bestT = Infinity;
   let bestTile: { x: number; y: number } | null = null;
@@ -124,7 +124,7 @@ function findClickedTile(mx: number, my: number, canvasW: number, canvasH: numbe
       const { wx, wz } = gridToWorld(gx, gy);
       const t = rayAABB(
         ox, oy, oz,
-        dx, dy, dz,
+        fwdX, fwdY, fwdZ,
         wx - HALF, -FLOOR_HEIGHT / 2, wz - HALF,
         wx + HALF, FLOOR_HEIGHT / 2, wz + HALF,
       );
@@ -147,9 +147,12 @@ const sketch = (p: p5) => {
     const hh = container.offsetHeight * ZOOM / 2;
     p.ortho(-hw, hw, -hh, hh);
 
-    const camX = CAM_DIST * Math.sin(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
-    const camY = -CAM_DIST * Math.sin(CAM_ANGLE_X);
-    const camZ = CAM_DIST * Math.cos(CAM_ANGLE_Y) * Math.cos(CAM_ANGLE_X);
+    const camDist = 800;
+    const camAngleY = Math.PI / 4;
+    const camAngleX = Math.PI / 6;
+    const camX = camDist * Math.sin(camAngleY) * Math.cos(camAngleX);
+    const camY = -camDist * Math.sin(camAngleX);
+    const camZ = camDist * Math.cos(camAngleY) * Math.cos(camAngleX);
     p.camera(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
   };
 
@@ -157,7 +160,7 @@ const sketch = (p: p5) => {
     const selected = getSelectedBuilding();
     if (!selected) return;
 
-    const grid = findClickedTile(p.mouseX, p.mouseY, p.width, p.height);
+    const grid = findClickedTile(p);
     if (!grid) return;
 
     const result = sektor.createBuilding({ type: selected, x: grid.x, y: grid.y });
@@ -199,6 +202,7 @@ const sketch = (p: p5) => {
       }
     }
 
+    p.noStroke();
     for (const building of placedBuildings) {
       p.push();
       const { wx, wz } = gridToWorld(building.x, building.y);
@@ -207,6 +211,7 @@ const sketch = (p: p5) => {
       applyCommands(p, commands);
       p.pop();
     }
+    p.stroke(150);
 
     document.getElementById("canvas-container")!.dataset.rendered = "true";
   };
