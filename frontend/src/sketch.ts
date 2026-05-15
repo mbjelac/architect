@@ -96,7 +96,7 @@ function rayAABB(
 function findClickedTile(mx: number, my: number, canvasW: number, canvasH: number): { x: number; y: number } | null {
   // Convert pixel to NDC (-1 to 1), Y flipped
   const ndcX = (mx / canvasW) * 2 - 1;
-  const ndcY = -((my / canvasH) * 2 - 1);
+  const ndcY = (my / canvasH) * 2 - 1;
 
   // Ortho half-extents
   const hw = canvasW * ZOOM / 2;
